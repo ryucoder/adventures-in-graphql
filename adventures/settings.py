@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     
     # third party apps
     'graphene_django',
+    'django_filters',
 
     # current project apps
     "ingredients", 
@@ -131,5 +132,9 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 GRAPHENE = {
-    "SCHEMA": "ingredients.schema.schema"
+    "SCHEMA": "adventures.schema.schema",
+    'SCHEMA_OUTPUT': 'schema.json',  # defaults to schema.json,
+    'SCHEMA_INDENT': 4,  # Defaults to None (displays all data on a single line)
+    'CAMELCASE_ERRORS': False,
+
 }

@@ -31,13 +31,19 @@
 #             return None
 
 
-# cookbook/ingredients/schema.py
+
 import graphene 
+
 from graphene import relay
-from graphene_django import DjangoObjectType
+from graphene_django import DjangoObjectType, DjangoListField
 from graphene_django.filter import DjangoFilterConnectionField
 
 from ingredients.models import Category, Ingredient
+
+class CategoryType(DjangoObjectType):
+    class Meta:
+        model = Category
+        fields = ("id", "name", "ingredients")
 
 
 # Graphene will automatically map the Category model's fields onto the CategoryNode.
@@ -62,7 +68,9 @@ class IngredientNode(DjangoObjectType):
         interfaces = (relay.Node, )
 
 
-class Query(graphene.ObjectType):
+class IngredientsQuery(graphene.ObjectType):
+    all_category = DjangoListField(CategoryType)
+
     category = relay.Node.Field(CategoryNode)
     all_categories = DjangoFilterConnectionField(CategoryNode)
 
@@ -70,4 +78,4 @@ class Query(graphene.ObjectType):
     all_ingredients = DjangoFilterConnectionField(IngredientNode)
 
 
-schema = graphene.Schema(query=Query)
+# schema = graphene.Schema(query=IngredientsQuery)
