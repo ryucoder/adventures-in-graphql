@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # third party apps
+    'debug_toolbar',
     'graphene_django',
     'django_filters',
 
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -137,4 +139,13 @@ GRAPHENE = {
     'SCHEMA_INDENT': 4,  # Defaults to None (displays all data on a single line)
     'CAMELCASE_ERRORS': False,
 
+    'MIDDLEWARE': [
+        'graphene_django.debug.DjangoDebugMiddleware',
+    ]
+
 }
+
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
